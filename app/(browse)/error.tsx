@@ -1,38 +1,35 @@
+/**
+ * @file error.tsx
+ * @description Client-side error boundary page for the browse section.
+ * Displayed when an unexpected error occurs while browsing streams or content.
+ * Provides a user-friendly message and a link to navigate back to the home page.
+ */
+
 "use client";
 
-import { useEffect } from "react";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
 
 /**
- * Error boundary for the `(browse)` route group.
+ * BrowseErrorPage component.
  *
- * Catches uncaught exceptions thrown by Server Components (e.g. a failed
- * `currentUser()` call in the navbar) and renders a minimal fallback UI
- * with a retry button instead of crashing the entire page.
+ * Renders a centered error message with a navigation button
+ * that redirects the user back to the home page.
+ * Used as a Next.js error boundary within the browse route segment.
  *
- * @param props.error - The error that was thrown.
- * @param props.retry - Callback to re-render the segment.
+ * @returns {JSX.Element} A full-height centered layout displaying a generic error message.
  */
-export default function BrowseError({
-  error,
-  retry,
-}: {
-  error: Error & { digest?: string };
-  retry: () => void;
-}) {
-  useEffect(() => {
-    console.error("[Browse] Uncaught error:", error);
-  }, [error]);
-
+export default function BrowseErrorPage() {
   return (
-    <div className="flex h-full flex-col items-center justify-center space-y-4">
-      <p className="text-sm text-muted-foreground">Something went wrong.</p>
-      <button
-        className="text-sm text-primary underline underline-offset-4"
-        type="button"
-        onClick={() => retry()}
-      >
-        Try again
-      </button>
+    <div className="flex h-full flex-col items-center justify-center space-y-4 text-muted-foreground">
+      {/* Generic error message displayed when something goes wrong */}
+      <p>Something went wrong</p>
+
+      {/* Button to navigate back to the home page */}
+      <Button asChild variant="secondary">
+        <Link href="/">Go back home</Link>
+      </Button>
     </div>
   );
 }
