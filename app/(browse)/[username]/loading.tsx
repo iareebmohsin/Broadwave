@@ -8,7 +8,7 @@
 import { StreamPlayerSkeleton } from "@/components/stream-player";
 
 /**
- * UserLoading component.
+ * UsernameLoading component.
  *
  * Renders a full-height skeleton placeholder for the stream player
  * while the user's stream data is being loaded.
@@ -16,7 +16,7 @@ import { StreamPlayerSkeleton } from "@/components/stream-player";
  *
  * @returns {JSX.Element} A full-height container with the StreamPlayer skeleton.
  */
-export default function UserLoading() {
+export default function UsernameLoading() {
   return (
     <div className="h-screen">
       {/* Skeleton placeholder displayed while the stream player data is loading */}

@@ -32,25 +32,25 @@ export const metadata: Metadata = {
 };
 
 /**
- * Props for the CreatorLayout component.
+ * Props for the UUsernameLayout component.
  *
  * `params` is a Promise in Next.js App Router dynamic routes,
  * requiring `await` before accessing individual route segments.
  *
- * @interface CreatorLayoutProps
+ * @interface UUsernameLayoutProps
  * @property {Promise<{ username: string }>} params - Dynamic route parameters.
  * @property {string} params.username - The username segment from the URL path,
  *   used to verify the authenticated user's identity.
  * @property {React.ReactNode} children - The nested page content to render
  *   inside the layout.
  */
-interface CreatorLayoutProps {
+interface UUsernameLayoutProps {
   params: Promise<{ username: string }>;
   children: React.ReactNode;
 }
 
 /**
- * CreatorLayout component — async server layout for the
+ * UUsernameLayout component — async server layout for the
  * `/(dashboard)/u/[username]` route group.
  *
  * Responsibilities:
@@ -62,7 +62,7 @@ interface CreatorLayoutProps {
  *    around the nested page content.
  *
  * @async
- * @param {CreatorLayoutProps} props - The layout props.
+ * @param {UUsernameLayoutProps} props - The layout props.
  * @param {Promise<{ username: string }>} props.params - Dynamic route parameters.
  * @param {React.ReactNode} props.children - Nested page content.
  *
@@ -73,10 +73,10 @@ interface CreatorLayoutProps {
  * // Navigating to /u/johndoe/dashboard renders this layout
  * // with the dashboard page as `children`, provided johndoe is signed in.
  */
-export default async function CreatorLayout({
+export default async function UUsernameLayout({
   params,
   children,
-}: CreatorLayoutProps) {
+}: UUsernameLayoutProps) {
   const { username } = await params;
 
   // Retrieve the authenticated user matching the URL username segment.

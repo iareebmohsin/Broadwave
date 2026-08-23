@@ -30,6 +30,13 @@ export const metadata: Metadata = {
 };
 
 /**
+ * Props for the {@link AuthLayout} component.
+ */
+interface AuthLayoutProps {
+  children: React.ReactNode;
+}
+
+/**
  * AuthLayout component for wrapping authentication pages.
  *
  * Renders a full-screen container that centers its children both
@@ -42,7 +49,7 @@ export const metadata: Metadata = {
  * - Creates visual isolation from the main application chrome
  *
  * @component
- * @param {LayoutProps<"/">} props - Layout component props
+ * @param {AuthLayoutProps} props - Layout component props
  * @param {React.ReactNode} props.children - Authentication page content to center
  *
  * @returns {JSX.Element} A full-screen centered container
@@ -54,7 +61,7 @@ export const metadata: Metadata = {
  */
 export default function AuthLayout({
   children,
-}: LayoutProps<"/">): React.JSX.Element {
+}: AuthLayoutProps): React.JSX.Element {
   return (
     /*
      * Full-screen centering container.

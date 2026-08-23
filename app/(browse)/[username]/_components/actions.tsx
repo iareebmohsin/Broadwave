@@ -79,7 +79,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
    *
    * @returns {void}
    */
-  const handleFollow = () => {
+  function handleFollow() {
     startTransition(async () => {
       try {
         const data = await onFollow(userId);
@@ -88,7 +88,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   /**
    * Initiates an unfollow action for the target user.
@@ -99,7 +99,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
    *
    * @returns {void}
    */
-  const handleUnfollow = () => {
+  function handleUnfollow() {
     startTransition(async () => {
       try {
         const data = await onUnfollow(userId);
@@ -108,7 +108,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   /**
    * Handles the follow/unfollow button click event.
@@ -118,13 +118,13 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
    *
    * @returns {void}
    */
-  const onClick = () => {
+  function onClick() {
     if (isFollowing) {
       handleUnfollow();
     } else {
       handleFollow();
     }
-  };
+  }
 
   /**
    * Initiates a block action for the target user.
@@ -135,7 +135,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
    *
    * @returns {void}
    */
-  const handleBlock = () => {
+  function handleBlock() {
     startTransition(async () => {
       try {
         const data = await onBlock(userId);
@@ -144,7 +144,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   return (
     <>

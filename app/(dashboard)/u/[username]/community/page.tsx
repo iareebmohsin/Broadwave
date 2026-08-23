@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * CommunityPage component - Displays the Community Settings dashboard page.
+ * UUsernameCommunityPage component - Displays the Community Settings dashboard page.
  *
  * Retrieves the current user's block list via {@link getBlockedUsers},
  * transforms each record into a flat {@link BlockedUser}-shaped object
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
  *
  * @returns {Promise<JSX.Element>} The rendered Community Settings page.
  */
-export default async function CommunityPage() {
+export default async function UUsernameCommunityPage() {
   const blockedUsers = await getBlockedUsers();
 
   // Flatten each block record so the DataTable columns can access user

@@ -56,7 +56,7 @@ export function ResultsList({
    * Fetches the next page of search results and appends them to the current list.
    * No-ops if there is no available cursor or a fetch is already in progress.
    */
-  const handleShowMore = () => {
+  function handleShowMore() {
     if (!cursor || isPending) return;
 
     startTransition(async () => {
@@ -68,16 +68,16 @@ export function ResultsList({
         toast.error("Failed to load more results");
       }
     });
-  };
+  }
 
   /**
    * Resets the displayed results back to the initial default limit and
    * restores the original cursor so "Show more" can be used again.
    */
-  const handleShowFewer = () => {
+  function handleShowFewer() {
     setItems(initialItems);
     setCursor(initialCursor);
-  };
+  }
 
   /** True when the result set has grown beyond the server-rendered initial page. */
   const hasExceededDefault =

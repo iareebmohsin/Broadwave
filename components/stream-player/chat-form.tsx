@@ -22,6 +22,9 @@ import { cn } from "@/lib/utils";
 
 import { ChatInfo } from "./chat-info";
 
+/** Duration in milliseconds to throttle messages when slow mode is enabled. */
+const CHAT_DELAY_DURATION_MS = 3000;
+
 /**
  * Props for the {@link ChatForm} component.
  *
@@ -61,7 +64,7 @@ interface ChatFormProps {
  *
  * @function ChatForm
  * @param {ChatFormProps} props - Component props.
- * @returns {JSX.Element | null} The chat form, or `null` when `isHidden` is true.
+ * @returns {JSX.Element} The rendered chat composer.
  */
 export function ChatForm({
   onSubmit,
@@ -73,14 +76,15 @@ export function ChatForm({
   isDelayed,
 }: ChatFormProps) {
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
-  const delayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const delayTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
   const isDisabled =
     isHidden || isDelayBlocked || isFollowersOnlyAndNotFollowing;
 
+
   /**
-   * Handles form submission.
+   * Handles the `<form>` submit event.
    *
    * Ignores empty or disabled submissions. When slow mode is enabled,
    * blocks further submissions for 3 seconds before invoking `onSubmit`;
@@ -88,7 +92,7 @@ export function ChatForm({
    *
    * @param {React.SubmitEvent<HTMLFormElement>} e - The form submit event.
    */
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -100,11 +104,11 @@ export function ChatForm({
         delayTimerRef.current = null;
         setIsDelayBlocked(false);
         onSubmit();
-      }, 3000);
+      }, CHAT_DELAY_DURATION_MS);
     } else {
       onSubmit();
     }
-  };
+  }
 
   // Clear the pending delay timer when the form becomes disabled
   // (e.g. followers-only gate kicks in) to avoid a stale onSubmit firing.

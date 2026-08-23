@@ -61,7 +61,7 @@ import { Toaster as Sonner, type ToasterProps } from "sonner";
  * import { toast } from "sonner";
  * toast.success("Profile updated!");
  */
-const Toaster = ({ ...props }: ToasterProps) => {
+function Toaster({ ...props }: ToasterProps) {
   /**
    * Retrieve the currently resolved theme from next-themes.
    * Falls back to `"system"` if the theme has not yet been determined

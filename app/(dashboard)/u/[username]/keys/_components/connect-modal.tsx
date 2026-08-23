@@ -115,7 +115,7 @@ export function ConnectModal() {
    * @function onSubmit
    * @returns {void}
    */
-  const onSubmit = () => {
+  function onSubmit() {
     startTransition(async () => {
       try {
         await createIngress(parseInt(ingressType));
@@ -126,7 +126,7 @@ export function ConnectModal() {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   return (
     <Dialog>

@@ -66,16 +66,18 @@ export type StreamPlayerStream = NonNullable<StreamPlayerUser["stream"]>;
  * @returns The matching user (with `stream` and `_count.followedBy`
  *          selected), or `null` if no user is found.
  */
-export const getUserByUsername = cache(async (username: string) => {
-  const user = await db.user.findUnique({
-    where: {
-      username,
-    },
-    select: streamPlayerUserSelect,
-  });
+export const getUserByUsername = cache(
+  async function getUserByUsername(username: string) {
+    const user = await db.user.findUnique({
+      where: {
+        username,
+      },
+      select: streamPlayerUserSelect,
+    });
 
-  return user;
-});
+    return user;
+  },
+);
 
 /**
  * Retrieves a user by their unique username, including both the public fields

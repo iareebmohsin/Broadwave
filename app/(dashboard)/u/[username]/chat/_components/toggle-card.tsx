@@ -31,7 +31,7 @@ interface ToggleCardProps {
 export function ToggleCard({ label, value = false, field }: ToggleCardProps) {
   const [isPending, startTransition] = useTransition();
 
-  const onChange = () => {
+  function onChange() {
     startTransition(async () => {
       try {
         await updateStream({ [field]: !value });
@@ -40,7 +40,7 @@ export function ToggleCard({ label, value = false, field }: ToggleCardProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   return (
     <div className="rounded-xl bg-muted p-6">

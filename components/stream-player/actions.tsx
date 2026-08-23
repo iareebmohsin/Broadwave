@@ -82,7 +82,7 @@ export function Actions({ hostIdentity, isFollowing, isHost }: ActionsProps) {
    * responsive during the async operation. Displays a success toast with
    * the followed user's username on completion, or an error toast on failure.
    */
-  const handleFollow = () => {
+  function handleFollow() {
     startTransition(async () => {
       try {
         const data = await onFollow(hostIdentity);
@@ -91,7 +91,7 @@ export function Actions({ hostIdentity, isFollowing, isHost }: ActionsProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   /**
    * Initiates an unfollow action for the host identified by `hostIdentity`.
@@ -99,7 +99,7 @@ export function Actions({ hostIdentity, isFollowing, isHost }: ActionsProps) {
    * responsive during the async operation. Displays a success toast with
    * the unfollowed user's username on completion, or an error toast on failure.
    */
-  const handleUnfollow = () => {
+  function handleUnfollow() {
     startTransition(async () => {
       try {
         const data = await onUnfollow(hostIdentity);
@@ -108,7 +108,7 @@ export function Actions({ hostIdentity, isFollowing, isHost }: ActionsProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   /**
    * Handles the button click event by routing the user appropriately:
@@ -117,7 +117,7 @@ export function Actions({ hostIdentity, isFollowing, isHost }: ActionsProps) {
    * - Calls {@link handleUnfollow} if currently following,
    *   or {@link handleFollow} otherwise.
    */
-  const toggleFollow = () => {
+  function toggleFollow() {
     if (!userId) {
       return router.push("/sign-in");
     }
@@ -129,7 +129,7 @@ export function Actions({ hostIdentity, isFollowing, isHost }: ActionsProps) {
     } else {
       handleFollow();
     }
-  };
+  }
 
   return (
     <Button

@@ -106,3 +106,23 @@ export function stringToColor(str: string): string {
   const index = Math.abs(hash % CONTRAST_SAFE_COLORS.length);
   return CONTRAST_SAFE_COLORS[index];
 }
+
+/**
+ * Reads a required environment variable, throwing if it is not set.
+ *
+ * @param name - The name of the environment variable to read.
+ * @returns The environment variable's value.
+ * @throws {Error} If the environment variable is not set.
+ *
+ * @example
+ * const appUrl = requireEnvVar("NEXT_PUBLIC_APP_URL");
+ */
+export function requireEnvVar(name: string): string {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`${name} is not set in environment variables`);
+  }
+
+  return value;
+}

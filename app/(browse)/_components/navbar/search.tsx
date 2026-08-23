@@ -55,7 +55,7 @@ export function Search() {
    * - Ignores empty input values and returns early
    * - Uses `query-string` to safely serialize the URL with the search term
    */
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const trimmedValue = value.trim();
@@ -71,7 +71,7 @@ export function Search() {
     );
 
     router.push(url);
-  };
+  }
 
   /**
    * Clears the current search input value by resetting the state to
@@ -79,9 +79,9 @@ export function Search() {
    *
    * @returns {void}
    */
-  const onClear = () => {
+  function onClear() {
     setValue("");
-  };
+  }
 
   return (
     <form

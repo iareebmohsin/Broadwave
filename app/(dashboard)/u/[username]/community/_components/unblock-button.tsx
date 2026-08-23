@@ -44,7 +44,7 @@ export function UnblockButton({ userId }: UnblockButtonProps) {
    * Initiates the unblock action inside a React transition.
    * Shows a success or error toast based on the outcome.
    */
-  const onClick = () => {
+  function onClick() {
     startTransition(async () => {
       try {
         const result = await onUnblock(userId);
@@ -53,7 +53,7 @@ export function UnblockButton({ userId }: UnblockButtonProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   return (
     <Button

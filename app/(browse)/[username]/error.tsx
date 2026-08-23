@@ -12,7 +12,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 /**
- * UserErrorPage component.
+ * UsernameErrorPage component.
  *
  * Renders a centered error message with a navigation button
  * that redirects the user back to the home page.
@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
  *
  * @returns {JSX.Element} A full-height centered layout displaying a generic error message.
  */
-export default function UserErrorPage() {
+export default function UsernameErrorPage() {
   return (
     <div className="flex h-screen flex-col items-center justify-center space-y-4 text-muted-foreground">
       <title>Error - Stream Unavailable | NexusLive</title>

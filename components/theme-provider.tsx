@@ -16,6 +16,11 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 /**
+ * Props for the {@link ThemeProvider} component.
+ */
+export type ThemeProviderProps = React.ComponentProps<typeof NextThemesProvider>;
+
+/**
  * ThemeProvider component that enables light/dark mode support.
  *
  * Wraps the application with `next-themes` to provide:
@@ -25,7 +30,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
  * - Automatic class injection on the `<html>` element
  *
  * @component
- * @param {React.ComponentProps<typeof NextThemesProvider>} props - All props
+ * @param {ThemeProviderProps} props - All props
  *   are forwarded directly to the underlying `next-themes` ThemeProvider.
  *
  * @example
@@ -38,6 +43,6 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 export function ThemeProvider({
   children,
   ...props
-}: React.ComponentProps<typeof NextThemesProvider>): React.JSX.Element {
+}: ThemeProviderProps): React.JSX.Element {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

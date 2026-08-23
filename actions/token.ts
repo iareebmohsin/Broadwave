@@ -17,6 +17,7 @@ import { v4 } from "uuid";
 import { getSelf } from "@/lib/auth-service";
 import { isBlockedByUser } from "@/lib/block-service";
 import { getUserById } from "@/lib/user-service";
+import { requireEnvVar } from "@/lib/utils";
 
 /**
  * Generates a signed LiveKit JWT granting the current user (or a guest)
@@ -77,14 +78,8 @@ export async function createViewerToken(hostIdentity: string) {
   // Distinguish the host from regular viewers inside the LiveKit room.
   const isHost = self.id === host.id;
 
-  const apiKey = process.env.LIVEKIT_API_KEY;
-  const apiSecret = process.env.LIVEKIT_API_SECRET;
-
-  if (!apiKey || !apiSecret) {
-    throw new Error(
-      "LIVEKIT_API_KEY and LIVEKIT_API_SECRET are missing in the environment variables",
-    );
-  }
+  const apiKey = requireEnvVar("LIVEKIT_API_KEY");
+  const apiSecret = requireEnvVar("LIVEKIT_API_SECRET");
 
   // Construct the access token with the resolved identity and display name.
   const token = new AccessToken(apiKey, apiSecret, {

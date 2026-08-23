@@ -101,7 +101,7 @@ export function Chat({
   }, [messages]);
 
   /** Sends the current input value via LiveKit and clears the input. */
-  const onSubmit = async () => {
+  async function onSubmit() {
     if (!send) return;
 
     try {
@@ -110,12 +110,12 @@ export function Chat({
     } catch (error) {
       console.error("[Chat] Failed to send message:", error);
     }
-  };
+  }
 
   /** Updates the controlled chat input value. */
-  const onChange = (value: string) => {
+  function onChange(value: string) {
     setValue(value);
-  };
+  }
 
   return (
     <div className="flex h-[calc(100vh-80px)] flex-col border-b border-l bg-background pt-0">
