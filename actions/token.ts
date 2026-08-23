@@ -16,6 +16,7 @@ import { v4 } from "uuid";
 
 import { getSelf } from "@/lib/auth-service";
 import { isBlockedByUser } from "@/lib/block-service";
+import { ENV_LIVEKIT_API_KEY, ENV_LIVEKIT_API_SECRET } from "@/lib/constants";
 import { getUserById } from "@/lib/user-service";
 import { requireEnvVar } from "@/lib/utils";
 
@@ -78,8 +79,8 @@ export async function createViewerToken(hostIdentity: string) {
   // Distinguish the host from regular viewers inside the LiveKit room.
   const isHost = self.id === host.id;
 
-  const apiKey = requireEnvVar("LIVEKIT_API_KEY");
-  const apiSecret = requireEnvVar("LIVEKIT_API_SECRET");
+  const apiKey = requireEnvVar(ENV_LIVEKIT_API_KEY);
+  const apiSecret = requireEnvVar(ENV_LIVEKIT_API_SECRET);
 
   // Construct the access token with the resolved identity and display name.
   const token = new AccessToken(apiKey, apiSecret, {

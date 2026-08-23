@@ -8,7 +8,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# AGENTS.md
+# CLAUDE.md
 
 ## Project Overview
 
@@ -30,7 +30,7 @@ A full-featured **Twitch clone** built with **Next.js 16** (App Router), **React
 
 ### Architecture
 
-```
+```text
 app/
 ├── (auth)/           # Clerk sign-in / sign-up pages
 ├── (browse)/         # Public-facing: home feed, user profiles, search

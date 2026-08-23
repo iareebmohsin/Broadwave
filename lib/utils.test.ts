@@ -20,24 +20,28 @@ test("stringToColor handles empty string gracefully", () => {
   assert.match(color, /^#[0-9A-Fa-f]{6}$/);
 });
 
-test("requireEnvVar returns the environment variable value when set", () => {
+test("requireEnvVar returns the environment variable value when set", function testRequireEnvVarSet() {
   process.env.TEST_VAR = "test-value";
   assert.strictEqual(requireEnvVar("TEST_VAR"), "test-value");
   delete process.env.TEST_VAR;
 });
 
-test("requireEnvVar throws an error when environment variable is not set", () => {
+test("requireEnvVar throws an error when environment variable is not set", function testRequireEnvVarMissing() {
   delete process.env.NON_EXISTENT_VAR;
   assert.throws(
-    () => requireEnvVar("NON_EXISTENT_VAR"),
+    function callRequireEnvVarMissing() {
+      requireEnvVar("NON_EXISTENT_VAR");
+    },
     /NON_EXISTENT_VAR is not set in environment variables/,
   );
 });
 
-test("requireEnvVar throws an error when environment variable is empty string", () => {
+test("requireEnvVar throws an error when environment variable is empty string", function testRequireEnvVarEmpty() {
   process.env.EMPTY_VAR = "";
   assert.throws(
-    () => requireEnvVar("EMPTY_VAR"),
+    function callRequireEnvVarEmpty() {
+      requireEnvVar("EMPTY_VAR");
+    },
     /EMPTY_VAR is not set in environment variables/,
   );
   delete process.env.EMPTY_VAR;

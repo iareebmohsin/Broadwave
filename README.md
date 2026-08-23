@@ -220,7 +220,7 @@ Open **[http://localhost:3000](http://localhost:3000)** and you're live! 🎉
 
 ## 🏗 Architecture
 
-```
+```text
 nextjs16-twitch-clone/
 │
 ├── app/
@@ -230,9 +230,10 @@ nextjs16-twitch-clone/
 │   │   ├── [username]/       #    User profile pages
 │   │   └── search/           #    Full-text search
 │   ├── (dashboard)/u/        # 🎛️ Creator dashboard
-│   │   ├── keys/             #    Stream connection keys
-│   │   ├── chat/             #    Chat preferences
-│   │   └── community/        #    Block / unblock users
+│   │   └── [username]/
+│   │       ├── keys/          #    Stream connection keys
+│   │       ├── chat/          #    Chat preferences
+│   │       └── community/     #    Block / unblock users
 │   └── api/
 │       ├── uploadthing/      # 📁 File upload routes
 │       └── webhooks/
@@ -325,8 +326,8 @@ erDiagram
 
 | Endpoint | Source | Purpose |
 | :--- | :---: | :--- |
-| `/api/webhooks/clerk` | <img src="https://img.shields.io/badge/-Clerk-6C47FF?style=flat-square&logo=clerk&logoColor=white" /> | Syncs user create / update / delete to the database |
-| `/api/webhooks/livekit` | <img src="https://img.shields.io/badge/-LiveKit-FF5A1F?style=flat-square&logo=webrtc&logoColor=white" /> | Updates stream live status on ingress events |
+| `/api/webhooks/clerk` | <img src="https://img.shields.io/badge/-Clerk-6C47FF?style=flat-square&logo=clerk&logoColor=white" alt="Clerk" /> | Syncs user create / update / delete to the database |
+| `/api/webhooks/livekit` | <img src="https://img.shields.io/badge/-LiveKit-FF5A1F?style=flat-square&logo=webrtc&logoColor=white" alt="LiveKit" /> | Updates stream live status on ingress events |
 
 ---
 
@@ -343,7 +344,7 @@ npm start
 
 > [!IMPORTANT]
 > The `generated/` directory is **gitignored**. CI/CD pipelines must run `prisma generate` before building — this is handled automatically by the `postinstall` script when running `npm install`.
-
+>
 > [!NOTE]
 > Remote images are allowed from `utfs.io`, `ufs.sh`, and `*.ufs.sh` (UploadThing CDN), configured in [`next.config.ts`](./next.config.ts).
 

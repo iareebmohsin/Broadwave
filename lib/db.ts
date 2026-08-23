@@ -17,6 +17,7 @@ import "dotenv/config";
 
 import { PrismaPg } from "@prisma/adapter-pg";
 
+import { ENV_DATABASE_URL } from "@/lib/constants";
 import { requireEnvVar } from "@/lib/utils";
 
 import { PrismaClient } from "../generated/prisma/client";
@@ -62,7 +63,7 @@ export function normalizeConnectionString(connectionString: string): string {
  */
 function createPrismaClient(): PrismaClient {
   const connectionString = normalizeConnectionString(
-    requireEnvVar("DATABASE_URL"),
+    requireEnvVar(ENV_DATABASE_URL),
   );
 
   /** Initialize the PostgreSQL adapter with the connection string */

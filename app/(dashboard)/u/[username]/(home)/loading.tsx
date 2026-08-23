@@ -13,10 +13,10 @@ import { StreamPlayerSkeleton } from "@/components/stream-player";
  * Loading fallback for the creator stream route. Shows a skeleton version
  * of the stream player so layout doesn't shift once real data arrives.
  *
- * @function UUsernameLoading
+ * @function UUsernameSkeleton
  * @returns {JSX.Element} The loading skeleton UI.
  */
-export default function UUsernameLoading() {
+export default function UUsernameSkeleton() {
   return (
     <div className="h-screen">
       <StreamPlayerSkeleton />

@@ -53,9 +53,10 @@ export function CopyButton({ value }: CopyButtonProps) {
       setIsCopied(true);
 
       // Reset the copied state after feedback duration
-      setTimeout(() => {
+      function resetCopiedState() {
         setIsCopied(false);
-      }, COPY_FEEDBACK_DURATION_MS);
+      }
+      setTimeout(resetCopiedState, COPY_FEEDBACK_DURATION_MS);
     } catch {
       // Clipboard write failed — leave confirmation state unset
     }

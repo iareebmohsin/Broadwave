@@ -64,7 +64,7 @@ interface ChatFormProps {
  *
  * @function ChatForm
  * @param {ChatFormProps} props - Component props.
- * @returns {JSX.Element} The rendered chat composer.
+ * @returns {React.JSX.Element | null} The rendered chat composer, or `null` when hidden.
  */
 export function ChatForm({
   onSubmit,

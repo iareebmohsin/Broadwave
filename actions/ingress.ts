@@ -39,6 +39,11 @@ import {
 } from "livekit-server-sdk";
 
 import { getSelf } from "@/lib/auth-service";
+import {
+  ENV_LIVEKIT_API_KEY,
+  ENV_LIVEKIT_API_SECRET,
+  ENV_LIVEKIT_API_URL,
+} from "@/lib/constants";
 import { db } from "@/lib/db";
 import { requireEnvVar } from "@/lib/utils";
 
@@ -49,7 +54,7 @@ import { requireEnvVar } from "@/lib/utils";
  * @type {string}
  * @see {@link https://docs.livekit.io/realtime/self-hosting/deployment/ | LiveKit Deployment Docs}
  */
-const apiUrl = requireEnvVar("LIVEKIT_API_URL");
+const apiUrl = requireEnvVar(ENV_LIVEKIT_API_URL);
 
 /**
  * API key used to authenticate requests against the LiveKit server.
@@ -57,7 +62,7 @@ const apiUrl = requireEnvVar("LIVEKIT_API_URL");
  * @internal
  * @type {string}
  */
-const apiKey = requireEnvVar("LIVEKIT_API_KEY");
+const apiKey = requireEnvVar(ENV_LIVEKIT_API_KEY);
 
 /**
  * API secret used to authenticate requests against the LiveKit server.
@@ -65,7 +70,7 @@ const apiKey = requireEnvVar("LIVEKIT_API_KEY");
  * @internal
  * @type {string}
  */
-const apiSecret = requireEnvVar("LIVEKIT_API_SECRET");
+const apiSecret = requireEnvVar(ENV_LIVEKIT_API_SECRET);
 
 /**
  * Singleton client used to manage LiveKit rooms

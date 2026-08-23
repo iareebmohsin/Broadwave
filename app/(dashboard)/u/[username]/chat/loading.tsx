@@ -7,7 +7,7 @@ import { ToggleCardSkeleton } from "./_components/toggle-card";
  * data is being fetched. Mirrors the page layout with a title placeholder
  * and three toggle card placeholders.
  */
-export default function UUsernameChatLoading() {
+export default function UUsernameChatSkeleton() {
   return (
     <div className="space-y-4 p-6">
       <Skeleton className="h-10 w-50" />
