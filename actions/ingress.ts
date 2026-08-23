@@ -39,46 +39,38 @@ import {
 } from "livekit-server-sdk";
 
 import { getSelf } from "@/lib/auth-service";
+import {
+  ENV_LIVEKIT_API_KEY,
+  ENV_LIVEKIT_API_SECRET,
+  ENV_LIVEKIT_API_URL,
+} from "@/lib/constants";
 import { db } from "@/lib/db";
+import { requireEnvVar } from "@/lib/utils";
 
 /**
  * Base URL of the LiveKit server instance.
  *
  * @internal
- * @type {string | undefined}
+ * @type {string}
  * @see {@link https://docs.livekit.io/realtime/self-hosting/deployment/ | LiveKit Deployment Docs}
  */
-const apiUrl = process.env.LIVEKIT_API_URL;
+const apiUrl = requireEnvVar(ENV_LIVEKIT_API_URL);
 
 /**
  * API key used to authenticate requests against the LiveKit server.
  *
  * @internal
- * @type {string | undefined}
+ * @type {string}
  */
-const apiKey = process.env.LIVEKIT_API_KEY;
+const apiKey = requireEnvVar(ENV_LIVEKIT_API_KEY);
 
 /**
  * API secret used to authenticate requests against the LiveKit server.
  *
  * @internal
- * @type {string | undefined}
+ * @type {string}
  */
-const apiSecret = process.env.LIVEKIT_API_SECRET;
-
-/**
- * Guard clause to ensure all required LiveKit environment variables
- * are present before the module is used. Prevents silent failures
- * caused by misconfigured environments.
- *
- * @throws {Error} If any of `LIVEKIT_API_URL`, `LIVEKIT_API_KEY`,
- *                 or `LIVEKIT_API_SECRET` are not set.
- */
-if (!apiUrl || !apiKey || !apiSecret) {
-  throw new Error(
-    "LIVEKIT_API_URL, LIVEKIT_API_KEY, and LIVEKIT_API_SECRET must be set in the environment variables",
-  );
-}
+const apiSecret = requireEnvVar(ENV_LIVEKIT_API_SECRET);
 
 /**
  * Singleton client used to manage LiveKit rooms

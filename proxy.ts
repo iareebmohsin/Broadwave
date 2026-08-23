@@ -25,7 +25,7 @@ import { clerkMiddleware } from "@clerk/nextjs/server";
  * - Search: `/search` and nested paths
  * - Dynamic user stream pages: `/:username` (single-segment root path)
  */
-export const isPublicRoute = (pathname: string): boolean => {
+export function isPublicRoute(pathname: string): boolean {
   if (
     pathname === "/" ||
     pathname === "/api/webhooks" ||
@@ -55,7 +55,7 @@ export const isPublicRoute = (pathname: string): boolean => {
   }
 
   return false;
-};
+}
 
 /**
  * Clerk middleware instance that handles authentication for all matched routes.

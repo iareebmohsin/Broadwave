@@ -25,6 +25,13 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
 /**
+ * Props for the {@link ClerkThemeProvider} component.
+ */
+interface ClerkThemeProviderProps {
+  children: React.ReactNode;
+}
+
+/**
  * ClerkThemeProvider component that syncs Clerk's theme with the app theme.
  *
  * Reads the current resolved theme (light/dark) from next-themes and
@@ -36,7 +43,7 @@ import { dark } from "@clerk/themes";
  * etc.) correctly match the application's current color scheme.
  *
  * @component
- * @param {object} props
+ * @param {ClerkThemeProviderProps} props - Component props
  * @param {React.ReactNode} props.children - Child components to render
  *
  * @returns {JSX.Element} ClerkProvider with theme-aware appearance
@@ -52,9 +59,7 @@ import { dark } from "@clerk/themes";
  */
 export function ClerkThemeProvider({
   children,
-}: {
-  children: React.ReactNode;
-}): React.JSX.Element {
+}: ClerkThemeProviderProps): React.JSX.Element {
   const { resolvedTheme } = useTheme();
 
   return (

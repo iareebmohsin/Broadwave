@@ -18,12 +18,12 @@ import { isFollowingUser } from "@/lib/follow-service";
 import { getUserByUsername } from "@/lib/user-service";
 
 /**
- * Props for the UserPage component and dynamic metadata generator.
+ * Props for the UsernamePage component and dynamic metadata generator.
  *
- * @interface UserPageProps
+ * @interface UsernamePageProps
  * @property {Promise<{ username: string }>} params - Route parameters containing the username.
  */
-interface UserPageProps {
+interface UsernamePageProps {
   params: Promise<{ username: string }>;
 }
 
@@ -36,12 +36,12 @@ interface UserPageProps {
  * - OpenGraph & Twitter Card images (stream thumbnail or creator avatar)
  * - Canonical link URL
  *
- * @param {UserPageProps} props - Component props containing the route params Promise.
+ * @param {UsernamePageProps} props - Component props containing the route params Promise.
  * @returns {Promise<Metadata>} The computed Next.js metadata object.
  */
 export async function generateMetadata({
   params,
-}: UserPageProps): Promise<Metadata> {
+}: UsernamePageProps): Promise<Metadata> {
   const { username } = await params;
   const user = await getUserByUsername(username);
 
@@ -90,7 +90,7 @@ export async function generateMetadata({
 }
 
 /**
- * UserPage component.
+ * UsernamePage component.
  *
  * An async server component that:
  * - Resolves the `username` from the route parameters.
@@ -100,10 +100,10 @@ export async function generateMetadata({
  * - Checks if the current viewer is following the user.
  * - Renders JSON-LD structured data and the `StreamPlayer` component.
  *
- * @param {UserPageProps} props - Component props containing the route parameters.
+ * @param {UsernamePageProps} props - Component props containing the route parameters.
  * @returns {Promise<JSX.Element>} The rendered stream player for the specified user.
  */
-export default async function UserPage({ params }: UserPageProps) {
+export default async function UsernamePage({ params }: UsernamePageProps) {
   // Resolve the username from the dynamic route parameters.
   const { username } = await params;
 

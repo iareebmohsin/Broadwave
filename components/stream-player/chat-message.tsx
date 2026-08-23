@@ -64,7 +64,7 @@ export function ChatMessage({ data }: ChatMessageProps) {
  * @function ChatSkeleton
  * @returns {JSX.Element} The composed chat sidebar skeleton.
  */
-export const ChatSkeleton = () => {
+export function ChatSkeleton() {
   return (
     <div className="flex h-[calc(100vh-80px)] flex-col border-2 border-b border-l pt-0">
       <ChatHeaderSkeleton />
@@ -72,4 +72,4 @@ export const ChatSkeleton = () => {
       <ChatFormSkeleton />
     </div>
   );
-};
+}

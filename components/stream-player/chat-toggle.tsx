@@ -27,13 +27,13 @@ export function ChatToggle() {
 
   const Icon = collapsed ? ArrowLeftFromLineIcon : ArrowRightFromLineIcon;
 
-  const onToggle = () => {
+  function onToggle() {
     if (collapsed) {
       onExpand();
     } else {
       onCollapse();
     }
-  };
+  }
 
   const label = collapsed ? "Expand" : "Collapse";
 

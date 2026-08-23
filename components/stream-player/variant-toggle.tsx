@@ -28,10 +28,10 @@ export function VariantToggle() {
 
   const Icon = isChat ? UsersIcon : MessageSquareIcon;
 
-  const onToggle = () => {
+  function onToggle() {
     const newVariant = isChat ? ChatVariant.COMMUNITY : ChatVariant.CHAT;
     onChangeVariant(newVariant);
-  };
+  }
 
   const label = isChat ? "Community" : "Go back to chat";
 

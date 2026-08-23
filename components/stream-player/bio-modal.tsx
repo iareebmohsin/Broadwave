@@ -101,12 +101,12 @@ export function BioModal({ initialValue }: BioModalProps) {
    * Resets the textarea value to the current persisted bio when closing,
    * discarding any unsaved local edits.
    */
-  const onOpenChange = (nextOpen: boolean) => {
+  function onOpenChange(nextOpen: boolean) {
     setOpen(nextOpen);
     if (!nextOpen) {
       setValue(initialValue || "");
     }
-  };
+  }
 
   /**
    * Handles form submission.
@@ -117,7 +117,7 @@ export function BioModal({ initialValue }: BioModalProps) {
    *
    * @param {React.FormEvent<HTMLFormElement>} e - The form submit event.
    */
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     startTransition(async () => {
@@ -129,7 +129,7 @@ export function BioModal({ initialValue }: BioModalProps) {
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

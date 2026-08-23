@@ -37,7 +37,7 @@ import { Button } from "@/components/ui/button";
  * @returns {Promise<JSX.Element>} A set of action buttons reflecting the
  * current authentication state of the user
  */
-export const Actions = async () => {
+export async function Actions() {
   /**
    * Fetches the currently authenticated user from Clerk, or null if
    * unauthenticated. Falls back to null on API errors (transient, rate-limit,
@@ -83,4 +83,4 @@ export const Actions = async () => {
       )}
     </div>
   );
-};
+}

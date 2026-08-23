@@ -14,6 +14,9 @@ import { CheckCheckIcon, CopyIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
+/** Duration in milliseconds to display the copied confirmation state. */
+const COPY_FEEDBACK_DURATION_MS = 1000;
+
 /**
  * Props for the CopyButton component.
  */
@@ -41,7 +44,7 @@ export function CopyButton({ value }: CopyButtonProps) {
    * Writes the provided value to the clipboard and temporarily
    * sets `isCopied` to true for visual feedback.
    */
-  const onCopy = async () => {
+  async function onCopy() {
     // Prevent copy if no value is provided
     if (!value) return;
 
@@ -49,14 +52,15 @@ export function CopyButton({ value }: CopyButtonProps) {
       await navigator.clipboard.writeText(value);
       setIsCopied(true);
 
-      // Reset the copied state after 1 second
-      setTimeout(() => {
+      // Reset the copied state after feedback duration
+      function resetCopiedState() {
         setIsCopied(false);
-      }, 1000);
+      }
+      setTimeout(resetCopiedState, COPY_FEEDBACK_DURATION_MS);
     } catch {
       // Clipboard write failed — leave confirmation state unset
     }
-  };
+  }
 
   // Show confirmation icon while copied, otherwise show copy icon
   const Icon = isCopied ? CheckCheckIcon : CopyIcon;

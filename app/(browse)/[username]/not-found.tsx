@@ -10,14 +10,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 /**
- * UserNotFoundPage component.
+ * UsernameNotFoundPage component.
  *
  * Renders a centered 404 error message specific to missing user profiles,
  * along with a navigation button that redirects the user back to the home page.
  *
  * @returns {JSX.Element} A full-height centered layout displaying a user-specific 404 error.
  */
-export default function UserNotFoundPage() {
+export default function UsernameNotFoundPage() {
   return (
     <div className="flex h-screen flex-col items-center justify-center space-y-4 text-muted-foreground">
       {/* 404 error code heading */}

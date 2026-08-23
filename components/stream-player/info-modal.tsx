@@ -41,10 +41,10 @@ interface InfoModalProps {
  * @param props - See {@link InfoModalProps}.
  * @returns A dialog containing the stream info edit form.
  */
-export const InfoModal = ({
+export function InfoModal({
   initialName,
   initialThumbnailUrl,
-}: InfoModalProps) => {
+}: InfoModalProps) {
   const router = useRouter();
 
   /** Ref for the hidden close button, used to programmatically close the dialog. */
@@ -63,7 +63,7 @@ export const InfoModal = ({
    * Removes the current stream thumbnail by setting it to null in the database.
    * Closes the dialog and shows a success or error toast on completion.
    */
-  const onRemove = () => {
+  function onRemove() {
     startTransition(async () => {
       try {
         await updateStream({ thumbnailUrl: null });
@@ -74,7 +74,7 @@ export const InfoModal = ({
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   /**
    * Handles the stream info form submission.
@@ -83,7 +83,7 @@ export const InfoModal = ({
    *
    * @param e - The form submit event.
    */
-  const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     startTransition(async () => {
@@ -95,16 +95,16 @@ export const InfoModal = ({
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   /**
    * Handles changes to the stream name input field.
    *
    * @param e - The input change event.
    */
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
-  };
+  }
 
   return (
     <Dialog

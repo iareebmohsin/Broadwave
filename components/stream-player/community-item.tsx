@@ -65,7 +65,7 @@ export function CommunityItem({
    * Blocks the participant via the `onBlock` server action, guarded so
    * only the host can block others (and never themselves).
    */
-  const handleBlock = () => {
+  function handleBlock() {
     if (!participantName || isSelf || !isHost) return;
 
     startTransition(async () => {
@@ -76,7 +76,7 @@ export function CommunityItem({
         toast.error("Something went wrong");
       }
     });
-  };
+  }
 
   return (
     <div

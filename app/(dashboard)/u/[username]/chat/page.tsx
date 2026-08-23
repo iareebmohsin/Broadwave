@@ -20,7 +20,7 @@ export const metadata: Metadata = {
  *
  * @throws {Error} If no stream exists for the authenticated user.
  */
-export default async function ChatPage() {
+export default async function UUsernameChatPage() {
   const self = await getSelf();
   const stream = await getStreamByUserId(self.id);
 

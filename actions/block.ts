@@ -12,22 +12,21 @@ import { RoomServiceClient } from "livekit-server-sdk";
 
 import { getSelf } from "@/lib/auth-service";
 import { blockUser, unblockUser } from "@/lib/block-service";
+import {
+  ENV_LIVEKIT_API_KEY,
+  ENV_LIVEKIT_API_SECRET,
+  ENV_LIVEKIT_API_URL,
+} from "@/lib/constants";
+import { requireEnvVar } from "@/lib/utils";
 
 /** LiveKit server API URL, used to connect to the LiveKit room service. */
-const apiUrl = process.env.LIVEKIT_API_URL;
+const apiUrl = requireEnvVar(ENV_LIVEKIT_API_URL);
 
 /** LiveKit API key for authenticating with the LiveKit server. */
-const apiKey = process.env.LIVEKIT_API_KEY;
+const apiKey = requireEnvVar(ENV_LIVEKIT_API_KEY);
 
 /** LiveKit API secret for authenticating with the LiveKit server. */
-const apiSecret = process.env.LIVEKIT_API_SECRET;
-
-// Ensure all required LiveKit environment variables are set before proceeding.
-if (!apiUrl || !apiKey || !apiSecret) {
-  throw new Error(
-    "LIVEKIT_API_URL, LIVEKIT_API_KEY, and LIVEKIT_API_SECRET must be set in the environment variables",
-  );
-}
+const apiSecret = requireEnvVar(ENV_LIVEKIT_API_SECRET);
 
 /**
  * LiveKit RoomServiceClient instance for managing room participants.

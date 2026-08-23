@@ -17,27 +17,27 @@ import { StreamPlayer } from "@/components/stream-player";
 import { getUserByUsernameWithExternalId } from "@/lib/user-service";
 
 /**
- * Props for the {@link CreatorPage} component.
+ * Props for the {@link UUsernamePage} component.
  *
- * @interface CreatorPageProps
+ * @interface UUsernamePageProps
  *
  * @property {Promise<{ username: string }>} params - Next.js dynamic route
  *   parameters. `username` corresponds to the `[username]` path segment and
  *   identifies the channel/creator being viewed.
  */
-interface CreatorPageProps {
+interface UUsernamePageProps {
   params: Promise<{ username: string }>;
 }
 
 /**
  * Generates dynamic metadata for the creator's dashboard page.
  *
- * @param {CreatorPageProps} props - Component props with route params Promise.
+ * @param {UUsernamePageProps} props - Component props with route params Promise.
  * @returns {Promise<Metadata>} Metadata object for the creator dashboard.
  */
 export async function generateMetadata({
   params,
-}: CreatorPageProps): Promise<Metadata> {
+}: UUsernamePageProps): Promise<Metadata> {
   const { username } = await params;
   return {
     title: `${username}'s Stream Dashboard`,
@@ -60,9 +60,9 @@ export async function generateMetadata({
  * `true`, since creators always implicitly follow their own channel.
  *
  * @async
- * @function CreatorPage
+ * @function UUsernamePage
  *
- * @param {CreatorPageProps} props - Component props containing the dynamic
+ * @param {UUsernamePageProps} props - Component props containing the dynamic
  *   route parameters.
  *
  * @returns {Promise<JSX.Element>} A full-height container wrapping the
@@ -70,7 +70,7 @@ export async function generateMetadata({
  *
  * @throws {Error} Throws `"Unauthorized"` if access control checks fail.
  */
-export default async function CreatorPage({ params }: CreatorPageProps) {
+export default async function UUsernamePage({ params }: UUsernamePageProps) {
   const { username } = await params;
   const [externalUser, owner] = await Promise.all([
     currentUser(),

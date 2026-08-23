@@ -17,6 +17,9 @@ import "dotenv/config";
 
 import { PrismaPg } from "@prisma/adapter-pg";
 
+import { ENV_DATABASE_URL } from "@/lib/constants";
+import { requireEnvVar } from "@/lib/utils";
+
 import { PrismaClient } from "../generated/prisma/client";
 
 /**
@@ -58,20 +61,16 @@ export function normalizeConnectionString(connectionString: string): string {
  * // .env
  * DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
  */
-const createPrismaClient = (): PrismaClient => {
-  let connectionString = process.env.DATABASE_URL;
-
-  if (!connectionString) {
-    throw new Error("Missing DATABASE_URL environment variable");
-  }
-
-  connectionString = normalizeConnectionString(connectionString);
+function createPrismaClient(): PrismaClient {
+  const connectionString = normalizeConnectionString(
+    requireEnvVar(ENV_DATABASE_URL),
+  );
 
   /** Initialize the PostgreSQL adapter with the connection string */
   const adapter = new PrismaPg({ connectionString });
 
   return new PrismaClient({ adapter });
-};
+}
 
 /**
  * Extends the `globalThis` object to include an optional `prisma` property.

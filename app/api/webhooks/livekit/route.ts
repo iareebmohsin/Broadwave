@@ -2,20 +2,16 @@ import { headers } from "next/headers";
 
 import { WebhookReceiver } from "livekit-server-sdk";
 
+import { ENV_LIVEKIT_API_KEY, ENV_LIVEKIT_API_SECRET } from "@/lib/constants";
 import { db } from "@/lib/db";
+import { requireEnvVar } from "@/lib/utils";
 
 /**
  * LiveKit API credentials used to verify webhook signatures.
  * These must be present in the environment for the module to load.
  */
-const apiKey = process.env.LIVEKIT_API_KEY;
-const apiSecret = process.env.LIVEKIT_API_SECRET;
-
-if (!apiKey || !apiSecret) {
-  throw new Error(
-    "LIVEKIT_API_KEY and LIVEKIT_API_SECRET must be set in the environment variables",
-  );
-}
+const apiKey = requireEnvVar(ENV_LIVEKIT_API_KEY);
+const apiSecret = requireEnvVar(ENV_LIVEKIT_API_SECRET);
 
 /**
  * Shared WebhookReceiver instance used to validate the authenticity

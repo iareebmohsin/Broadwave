@@ -66,7 +66,7 @@ export function useViewerToken(hostIdentity: string) {
 
     let cancelled = false;
 
-    const createToken = async () => {
+    async function createToken() {
       try {
         const viewerToken = await createViewerToken(hostIdentity);
 
@@ -99,7 +99,7 @@ export function useViewerToken(hostIdentity: string) {
         setError("Failed to connect to stream");
         toast.error("Something went wrong");
       }
-    };
+    }
 
     createToken();
 

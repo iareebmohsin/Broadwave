@@ -28,13 +28,13 @@ export const metadata: Metadata = {
 };
 
 /**
- * KeysPage - Server component that renders the "Keys & URLs" settings page.
+ * UUsernameKeysPage - Server component that renders the "Keys & URLs" settings page.
  *
  * @async
  * @returns {Promise<JSX.Element>} The rendered page layout containing the
  * connection modal, server URL card, and stream key card.
  */
-export default async function KeysPage() {
+export default async function UUsernameKeysPage() {
   // Retrieve the currently authenticated user
   const self = await getSelf();
 

@@ -166,6 +166,15 @@ export const metadata: Metadata = {
   },
 };
 
+const THEME_STORAGE_KEY = "nexuslive-theme";
+
+/**
+ * Props for the {@link RootLayout} component.
+ */
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
 /**
  * RootLayout component that wraps the entire application.
  *
@@ -182,7 +191,7 @@ export const metadata: Metadata = {
  * 2. ClerkThemeProvider — reads the resolved theme and passes it to Clerk
  *
  * @component
- * @param {Object} props - Layout component props
+ * @param {RootLayoutProps} props - Layout component props
  * @param {React.ReactNode} props.children - Child components/pages to render
  *
  * @returns {React.JSX.Element} The root HTML document structure
@@ -194,9 +203,7 @@ export const metadata: Metadata = {
  */
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}): React.JSX.Element {
+}: RootLayoutProps): React.JSX.Element {
   return (
     /*
      * Root HTML element.
@@ -248,7 +255,7 @@ export default function RootLayout({
          *   updates automatically.
          * - `disableTransitionOnChange` : Prevents a flash of transition
          *   animations when the theme switches.
-         * - `storageKey="nexuslive-theme"` : Key used in localStorage to persist
+         * - `storageKey={THEME_STORAGE_KEY}` : Key used in localStorage to persist
          *   the user's chosen theme across sessions.
          */}
         <ThemeProvider
@@ -256,7 +263,7 @@ export default function RootLayout({
           defaultTheme="system"
           disableTransitionOnChange
           enableSystem
-          storageKey="nexuslive-theme"
+          storageKey={THEME_STORAGE_KEY}
         >
           {/*
            * ClerkThemeProvider: Theme-aware authentication context.

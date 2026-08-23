@@ -34,11 +34,11 @@ interface VolumeControlProps {
  *
  * @returns {JSX.Element} A mute toggle button and volume slider.
  */
-export const VolumeControl = ({
+export function VolumeControl({
   onToggle,
   onChange,
   value,
-}: VolumeControlProps) => {
+}: VolumeControlProps) {
   const isMuted = value === 0;
   const isAboveHalf = value > 50;
 
@@ -58,9 +58,9 @@ export const VolumeControl = ({
    *
    * @param {number[]} value - Slider values (single-thumb, so index 0 is used).
    */
-  const handleChange = (value: number[]) => {
+  function handleChange(value: number[]) {
     onChange(value[0]);
-  };
+  }
 
   return (
     <div className="flex items-center gap-2">
@@ -81,4 +81,4 @@ export const VolumeControl = ({
       />
     </div>
   );
-};
+}
