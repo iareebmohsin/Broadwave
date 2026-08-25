@@ -126,3 +126,41 @@ export function requireEnvVar(name: string): string {
 
   return value;
 }
+
+const PRODUCTION_DEPLOYMENT_URL = "https://nexus-live-nine.vercel.app";
+const LOCALHOST_APP_URL = "http://localhost:3000";
+
+/**
+ * Resolves the public application URL for metadata, SEO, and webhooks.
+ *
+ * Evaluation priority:
+ * 1. `process.env.NEXT_PUBLIC_APP_URL` — Explicit environment variable.
+ * 2. `process.env.VERCEL_PROJECT_PRODUCTION_URL` — Auto-injected by Vercel for the production domain.
+ * 3. `process.env.VERCEL_URL` — Auto-injected by Vercel for preview / deployment instances.
+ * 4. Production fallback (`https://nexus-live-nine.vercel.app`) or local development fallback (`http://localhost:3000`).
+ *
+ * @returns {string} The normalized base URL without trailing slashes.
+ */
+export function getAppUrl(): string {
+  const customUrl = process.env.NEXT_PUBLIC_APP_URL;
+  if (customUrl && customUrl.trim().length > 0) {
+    return customUrl.replace(/\/+$/, "");
+  }
+
+  const vercelProdUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercelProdUrl && vercelProdUrl.trim().length > 0) {
+    return `https://${vercelProdUrl.replace(/\/+$/, "")}`;
+  }
+
+  const vercelUrl = process.env.VERCEL_URL;
+  if (vercelUrl && vercelUrl.trim().length > 0) {
+    return `https://${vercelUrl.replace(/\/+$/, "")}`;
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    return PRODUCTION_DEPLOYMENT_URL;
+  }
+
+  return LOCALHOST_APP_URL;
+}
+

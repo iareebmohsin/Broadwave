@@ -31,13 +31,9 @@ import { ClerkThemeProvider } from "@/components/clerk-theme-provider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { cn } from "@/lib/utils";
+import { cn, getAppUrl } from "@/lib/utils";
 
-const appUrl =
-  process.env.NEXT_PUBLIC_APP_URL ||
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
+const appUrl = getAppUrl();
 
 /**
  * Viewport configuration exported separately as per Next.js requirements.

@@ -9,6 +9,7 @@
 import type { MetadataRoute } from "next";
 
 import { db } from "@/lib/db";
+import { getAppUrl } from "@/lib/utils";
 
 /**
  * Revalidate sitemap every hour (3600 seconds) to balance freshness with database load.
@@ -24,11 +25,7 @@ export const revalidate = 3600;
  * @returns {Promise<MetadataRoute.Sitemap>} Array of sitemap entries.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ||
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000");
+  const baseUrl = getAppUrl();
 
   let creatorEntries: MetadataRoute.Sitemap = [];
 

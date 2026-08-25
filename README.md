@@ -25,10 +25,12 @@ A full-featured live streaming platform built from the ground up with\
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-v7-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![LiveKit](https://img.shields.io/badge/LiveKit-Streaming-FF5A1F?style=for-the-badge&logo=webrtc&logoColor=white)](https://livekit.io/)
+[![Vercel](https://img.shields.io/badge/Vercel-Live_Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://nexus-live-nine.vercel.app/)
 
 <br />
 
-[Features](#-features) · [Tech Stack](#-tech-stack) · [Quick Start](#-quick-start) · [Architecture](#-architecture) · [Scripts](#-scripts) · [Deployment](#-deployment)
+[🚀 Live Demo](https://nexus-live-nine.vercel.app/) · [Features](#-features) · [Tech Stack](#-tech-stack) · [Quick Start](#-quick-start) · [Architecture](#-architecture) · [Scripts](#-scripts) · [Deployment](#-deployment)
+
 
 <br />
 
@@ -337,16 +339,30 @@ erDiagram
 
 ## 🚢 Deployment
 
+The project is configured for seamless deployment on [Vercel](https://vercel.com/):
+
+- **Production URL:** [https://nexus-live-nine.vercel.app](https://nexus-live-nine.vercel.app/)
+- **Build Command:** `npm run build`
+- **Install Command:** `npm install` (runs `prisma generate` via postinstall)
+
 ```bash
 npm run build
 npm start
 ```
+
+### Production Webhooks
+
+Set the following webhook endpoints in their respective provider dashboards:
+
+- **Clerk Webhook:** `https://nexus-live-nine.vercel.app/api/webhooks/clerk`
+- **LiveKit Webhook:** `https://nexus-live-nine.vercel.app/api/webhooks/livekit`
 
 > [!IMPORTANT]
 > The `generated/` directory is **gitignored**. CI/CD pipelines must run `prisma generate` before building — this is handled automatically by the `postinstall` script when running `npm install`.
 >
 > [!NOTE]
 > Remote images are allowed from `utfs.io`, `ufs.sh`, and `*.ufs.sh` (UploadThing CDN), configured in [`next.config.ts`](./next.config.ts).
+
 
 ---
 
