@@ -57,7 +57,7 @@ export async function generateMetadata({
     : `${user.username}'s Stream`;
   const description =
     user.bio ||
-    `Watch ${user.username} live streaming on NexusLive. Join the real-time chat and community.`;
+    `Watch ${user.username} live streaming on Broadwave. Join the real-time chat and community.`;
   const image = user.stream.thumbnailUrl || user.imageUrl;
 
   return {
@@ -67,7 +67,7 @@ export async function generateMetadata({
       canonical: `/${user.username}`,
     },
     openGraph: {
-      title: `${title} | NexusLive`,
+      title: `${title} | Broadwave`,
       description,
       url: `/${user.username}`,
       type: "video.other",
@@ -82,7 +82,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | NexusLive`,
+      title: `${title} | Broadwave`,
       description,
       images: image ? [image] : [],
     },
@@ -131,7 +131,7 @@ export default async function UsernamePage({ params }: UsernamePageProps) {
     "@type": "BroadcastEvent",
     name: user.stream.name || `${user.username}'s Live Stream`,
     description:
-      user.bio || `Live broadcast by ${user.username} on NexusLive.`,
+      user.bio || `Live broadcast by ${user.username} on Broadwave.`,
     isLiveBroadcast: user.stream.isLive,
     videoFormat: "HD",
     actor: {

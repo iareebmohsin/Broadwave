@@ -1,6 +1,6 @@
 /**
  * @file app/sitemap.ts
- * @description Dynamic XML Sitemap generator for the NexusLive application.
+ * @description Dynamic XML Sitemap generator for the Broadwave application.
  * Queries all creators and live streams from the database to enable search engine discovery.
  *
  * @module app/sitemap

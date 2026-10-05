@@ -1,6 +1,6 @@
 /**
  * @file app/(auth)/sign-in/[[...sign-in]]/page.tsx
- * @description Sign-in page for the NexusLive application.
+ * @description Sign-in page for the Broadwave application.
  *
  * Renders Clerk's pre-built SignIn component, which provides a complete
  * authentication UI including:
@@ -29,7 +29,7 @@ import { SignIn } from "@clerk/nextjs";
  */
 export const metadata: Metadata = {
   title: "Sign In",
-  description: "Sign in to your NexusLive account to watch streams and join the community chat.",
+  description: "Sign in to your Broadwave account to watch streams and join the community chat.",
 };
 
 /**

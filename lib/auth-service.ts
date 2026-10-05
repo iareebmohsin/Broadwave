@@ -4,18 +4,10 @@ import { currentUser } from "@clerk/nextjs/server";
 import { User } from "@/generated/prisma/client";
 import { db } from "@/lib/db";
 
-/**
- * Retrieves the currently authenticated Clerk user and enforces that they
- * are signed in and have a username set.
- *
- * @throws {Error} `"Unauthorized"` — If there is no authenticated Clerk
- * session, or the authenticated user has no username.
- * @returns The authenticated Clerk user.
- */
 async function requireAuthenticatedClerkUser(): Promise<ClerkUser> {
   const self = await currentUser();
 
-  if (!self || !self.username) {
+  if (!self) {
     throw new Error("Unauthorized");
   }
 
@@ -23,15 +15,17 @@ async function requireAuthenticatedClerkUser(): Promise<ClerkUser> {
 }
 
 /**
- * Retrieves the local database record for the currently authenticated user.
- *
- * @throws {Error} `"Unauthorized"` — If there is no authenticated Clerk
- * session, or the authenticated user has no username.
- * @throws {Error} `"Not found"` — If no local user record exists for the
- * authenticated Clerk user.
- * @returns The local database user record corresponding to the current
- * Clerk session.
+ * Clerk accounts created with Google or email-only sign-in may have no
+ * username. Derive a stable handle from the username, the email local part,
+ * or the Clerk id so every account can own a channel.
  */
+export function deriveUsername(self: ClerkUser): string {
+  const email = self.emailAddresses?.[0]?.emailAddress ?? "";
+  const base = self.username || email.split("@")[0] || `creator_${self.id.slice(-6)}`;
+  const cleaned = base.toLowerCase().replace(/[^a-z0-9_]/g, "_").replace(/^_+|_+$/g, "");
+  return cleaned || `creator_${self.id.slice(-6)}`;
+}
+
 export async function getSelf(): Promise<User> {
   const self = await requireAuthenticatedClerkUser();
 
@@ -39,25 +33,31 @@ export async function getSelf(): Promise<User> {
     where: { externalUserId: self.id },
   });
 
-  if (!user) {
-    throw new Error("Not found");
+  if (user) {
+    return user;
   }
 
-  return user;
+  // No Clerk webhook in local development: create the local record (and the
+  // user's stream) on first authenticated request, mirroring the webhook.
+  const username = deriveUsername(self);
+  return db.user.upsert({
+    where: { externalUserId: self.id },
+    create: {
+      externalUserId: self.id,
+      username,
+      imageUrl: self.imageUrl,
+      stream: {
+        create: {
+          name: `${username}'s stream`,
+        },
+      },
+    },
+    update: {
+      imageUrl: self.imageUrl,
+    },
+  });
 }
 
-/**
- * Retrieves the local database record for the given username, provided it
- * belongs to the currently authenticated user.
- *
- * @param username - The username of the local user record to retrieve.
- * @throws {Error} `"Unauthorized"` — If there is no authenticated Clerk
- * session, the authenticated user has no username, or the authenticated
- * user's username does not match the requested user's username.
- * @throws {Error} `"User not found"` — If no local user record exists with
- * the given username.
- * @returns The local database user record matching `username`.
- */
 export async function getSelfByUsername(username: string): Promise<User> {
   const self = await requireAuthenticatedClerkUser();
 

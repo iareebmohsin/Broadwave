@@ -132,7 +132,7 @@ export function Header({
           </div>
           <p className="text-sm font-semibold">{name}</p>
           {isLive ? (
-            <div className="flex items-center gap-x-1 text-xs font-semibold text-rose-500">
+            <div className="flex items-center gap-x-1 text-xs font-semibold text-primary">
               <UserIcon className="size-4" />
               <p>
                 {participantCount}{" "}

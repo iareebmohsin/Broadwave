@@ -1,31 +1,17 @@
-import { WifiOffIcon } from "lucide-react";
+import { RadioIcon } from "lucide-react";
 
-/**
- * Props for the {@link OfflineVideo} component.
- *
- * @interface OfflineVideoProps
- *
- * @property {string} username - Display name of the host, shown in the
- *   "offline" message.
- */
 interface OfflineVideoProps {
   username: string;
 }
 
-/**
- * Renders a placeholder shown when the host is not currently streaming.
- *
- * @function OfflineVideo
- *
- * @param {OfflineVideoProps} props - Component props.
- *
- * @returns {JSX.Element} An offline indicator with the host's username.
- */
 export function OfflineVideo({ username }: OfflineVideoProps) {
   return (
-    <div className="flex h-full flex-col items-center justify-center space-y-4">
-      <WifiOffIcon className="size-10 text-muted-foreground" />
-      <p className="text-muted-foreground">{username} is offline</p>
+    <div className="flex h-full flex-col items-center justify-center space-y-4 bg-[radial-gradient(ellipse_at_center,color-mix(in_oklab,var(--aqua)_14%,transparent),transparent_70%)]">
+      <span className="inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-card text-muted-foreground">
+        <RadioIcon className="size-7" />
+      </span>
+      <p className="font-medium">{username} is off air</p>
+      <p className="text-sm text-muted-foreground">Follow to get notified when they go live.</p>
     </div>
   );
 }

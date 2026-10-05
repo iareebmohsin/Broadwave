@@ -1,83 +1,45 @@
-/**
- * @file actions.tsx
- * @description Navigation actions component that handles user authentication
- * state and provides relevant action buttons based on the authentication status.
- */
-
 import Link from "next/link";
 
 import { SignInButton, UserButton } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
-import { ClapperboardIcon } from "lucide-react";
+import { RadioIcon } from "lucide-react";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { getSelf } from "@/lib/auth-service";
 
-/**
- * Actions component that renders authentication-aware navigation controls.
- * Displays different UI elements based on the user's authentication state.
- *
- * @async
- * @component
- * @example
- * // Basic usage within the Navbar
- * <Actions />
- *
- * @remarks
- * **Unauthenticated state:**
- * - Displays a "Login" button wrapped in Clerk's SignInButton
- *
- * **Authenticated state:**
- * - Displays a link to the user's personal dashboard (`/u/{username}`)
- * - Displays Clerk's UserButton for account management and sign-out
- *
- * This is a server component that fetches the current user session
- * via Clerk's `currentUser()` server-side helper.
- *
- * @returns {Promise<JSX.Element>} A set of action buttons reflecting the
- * current authentication state of the user
- */
 export async function Actions() {
-  /**
-   * Fetches the currently authenticated user from Clerk, or null if
-   * unauthenticated. Falls back to null on API errors (transient, rate-limit,
-   * or network issues during navigation) so the navbar still renders.
-   */
-  let user = null;
+  let username: string | null = null;
   try {
-    user = await currentUser();
+    // Resolves (and lazily creates) the local channel record for the signed-in account.
+    const self = await getSelf();
+    username = self.username;
   } catch {
-    // Clerk API error — treat as unauthenticated so the page doesn't crash.
+    // Not signed in, or Clerk unreachable — show the sign-in button.
   }
 
   return (
-    <div className="ml-4 flex items-center justify-end gap-x-2 lg:ml-0">
+    <div className="ml-2 flex items-center justify-end gap-x-2 lg:ml-0">
       <ThemeToggle />
-      {/* Render login button for unauthenticated users */}
-      {!user && (
+      {!username && (
         <SignInButton>
-          <Button size="sm" variant="primary">
-            Login
+          <Button className="rounded-full px-5 font-semibold" size="sm" variant="primary">
+            Sign in
           </Button>
         </SignInButton>
       )}
-      {/* Render dashboard link and user menu for authenticated users */}
-      {!!user && (
-        <div className="flex items-center gap-x-4">
+      {!!username && (
+        <div className="flex items-center gap-x-3">
           <Button
             asChild
-            className="text-muted-foreground hover:text-primary"
+            className="rounded-full border border-border bg-card font-semibold hover:border-primary/50 hover:text-primary"
             size="sm"
             variant="ghost"
           >
-            {/* Dashboard link navigates to the user's personal page */}
-            <Link href={`/u/${user.username}`}>
-              <ClapperboardIcon className="size-5 lg:mr-2" />
-              {/* Label is hidden on mobile and visible on large screens */}
-              <span className="hidden lg:block">Dashboard</span>
+            <Link href={`/u/${username}`}>
+              <RadioIcon className="size-4 lg:mr-2" />
+              <span className="hidden lg:block">Studio</span>
             </Link>
           </Button>
-          {/* Clerk's built-in user account management button */}
           <UserButton />
         </div>
       )}

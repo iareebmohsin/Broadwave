@@ -127,7 +127,7 @@ export function requireEnvVar(name: string): string {
   return value;
 }
 
-const PRODUCTION_DEPLOYMENT_URL = "https://nexus-live-nine.vercel.app";
+const PRODUCTION_DEPLOYMENT_URL = "https://broadwave-nine.vercel.app";
 const LOCALHOST_APP_URL = "http://localhost:3000";
 
 /**
@@ -137,7 +137,7 @@ const LOCALHOST_APP_URL = "http://localhost:3000";
  * 1. `process.env.NEXT_PUBLIC_APP_URL` — Explicit environment variable.
  * 2. `process.env.VERCEL_PROJECT_PRODUCTION_URL` — Auto-injected by Vercel for the production domain.
  * 3. `process.env.VERCEL_URL` — Auto-injected by Vercel for preview / deployment instances.
- * 4. Production fallback (`https://nexus-live-nine.vercel.app`) or local development fallback (`http://localhost:3000`).
+ * 4. Production fallback (`https://broadwave-nine.vercel.app`) or local development fallback (`http://localhost:3000`).
  *
  * @returns {string} The normalized base URL without trailing slashes.
  */

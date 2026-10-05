@@ -62,7 +62,7 @@ export function NavItem({ icon: Icon, label, href, isActive }: NavItemProps) {
       className={cn(
         "h-12 w-full",
         collapsed ? "justify-center" : "justify-start",
-        isActive && "bg-accent",
+        isActive && "bg-accent text-primary",
       )}
       variant="ghost"
     >

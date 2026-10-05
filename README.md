@@ -6,11 +6,11 @@
 
 <br />
 
-<img src="./public/spooky.svg" alt="NexusLive" height="100" />
+<img src="./public/broadwave.svg" alt="Broadwave" height="100" />
 
 <br />
 
-# ✦ NexusLive
+# ✦ Broadwave
 
 ### Where creators and communities connect in real time
 
@@ -25,11 +25,11 @@ A full-featured live streaming platform built from the ground up with\
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-v7-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![LiveKit](https://img.shields.io/badge/LiveKit-Streaming-FF5A1F?style=for-the-badge&logo=webrtc&logoColor=white)](https://livekit.io/)
-[![Vercel](https://img.shields.io/badge/Vercel-Live_Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://nexus-live-nine.vercel.app/)
+[![Vercel](https://img.shields.io/badge/Vercel-Live_Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://broadwave-nine.vercel.app/)
 
 <br />
 
-[🚀 Live Demo](https://nexus-live-nine.vercel.app/) · [Features](#-features) · [Tech Stack](#-tech-stack) · [Quick Start](#-quick-start) · [Architecture](#-architecture) · [Scripts](#-scripts) · [Deployment](#-deployment)
+[🚀 Live Demo](https://broadwave-nine.vercel.app/) · [Features](#-features) · [Tech Stack](#-tech-stack) · [Quick Start](#-quick-start) · [Architecture](#-architecture) · [Scripts](#-scripts) · [Deployment](#-deployment)
 
 
 <br />
@@ -42,7 +42,7 @@ A full-featured live streaming platform built from the ground up with\
 
 ## 🔍 Overview
 
-**NexusLive** is a Twitch-style streaming platform where anyone can go live, build an audience, and interact through real-time chat. It combines [LiveKit](https://livekit.io/) for ultra-low-latency video, [Clerk](https://clerk.com/) for seamless authentication, [UploadThing](https://uploadthing.com/) for media uploads, and [Prisma](https://www.prisma.io/) + PostgreSQL for a rock-solid data layer — all wrapped in a modern, responsive UI with dark/light mode.
+**Broadwave** is a Twitch-style streaming platform where anyone can go live, build an audience, and interact through real-time chat. It combines [LiveKit](https://livekit.io/) for ultra-low-latency video, [Clerk](https://clerk.com/) for seamless authentication, [UploadThing](https://uploadthing.com/) for media uploads, and [Prisma](https://www.prisma.io/) + PostgreSQL for a rock-solid data layer — all wrapped in a modern, responsive UI with dark/light mode.
 
 ---
 
@@ -341,7 +341,7 @@ erDiagram
 
 The project is configured for seamless deployment on [Vercel](https://vercel.com/):
 
-- **Production URL:** [https://nexus-live-nine.vercel.app](https://nexus-live-nine.vercel.app/)
+- **Production URL:** [https://broadwave-nine.vercel.app](https://broadwave-nine.vercel.app/)
 - **Build Command:** `npm run build`
 - **Install Command:** `npm install` (runs `prisma generate` via postinstall)
 
@@ -354,8 +354,8 @@ npm start
 
 Set the following webhook endpoints in their respective provider dashboards:
 
-- **Clerk Webhook:** `https://nexus-live-nine.vercel.app/api/webhooks/clerk`
-- **LiveKit Webhook:** `https://nexus-live-nine.vercel.app/api/webhooks/livekit`
+- **Clerk Webhook:** `https://broadwave-nine.vercel.app/api/webhooks/clerk`
+- **LiveKit Webhook:** `https://broadwave-nine.vercel.app/api/webhooks/livekit`
 
 > [!IMPORTANT]
 > The `generated/` directory is **gitignored**. CI/CD pipelines must run `prisma generate` before building — this is handled automatically by the `postinstall` script when running `npm install`.

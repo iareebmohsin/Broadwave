@@ -5,6 +5,7 @@
 
 import { Prisma } from "@/generated/prisma";
 import { db } from "@/lib/db";
+import { refreshLiveStatus } from "@/lib/live-status";
 
 import { getSelf } from "./auth-service";
 
@@ -35,6 +36,7 @@ export const RECOMMENDED_LIMIT = 10;
  * `createdAt`, containing at most {@link RECOMMENDED_LIMIT} entries.
  */
 export async function getRecommended() {
+  await refreshLiveStatus();
   let userId: string | null = null;
 
   try {

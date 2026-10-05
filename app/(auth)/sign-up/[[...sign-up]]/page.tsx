@@ -1,6 +1,6 @@
 /**
  * @file app/(auth)/sign-up/[[...sign-up]]/page.tsx
- * @description Sign-up (registration) page for the NexusLive application.
+ * @description Sign-up (registration) page for the Broadwave application.
  *
  * Renders Clerk's pre-built SignUp component, which provides a complete
  * user registration UI including:
@@ -29,7 +29,7 @@ import { SignUp } from "@clerk/nextjs";
  */
 export const metadata: Metadata = {
   title: "Sign Up",
-  description: "Create a new NexusLive account to start streaming, chatting, and connecting with communities.",
+  description: "Create a new Broadwave account to start streaming, chatting, and connecting with communities.",
 };
 
 /**

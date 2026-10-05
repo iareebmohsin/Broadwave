@@ -2,6 +2,7 @@ import { cache } from "react";
 
 import { Prisma } from "@/generated/prisma";
 import { db } from "@/lib/db";
+import { refreshLiveStatus } from "@/lib/live-status";
 
 /**
  * Prisma select object defining the stream fields required by
@@ -68,6 +69,7 @@ export type StreamPlayerStream = NonNullable<StreamPlayerUser["stream"]>;
  */
 export const getUserByUsername = cache(
   async function getUserByUsername(username: string) {
+  await refreshLiveStatus();
     const user = await db.user.findUnique({
       where: {
         username,
@@ -87,6 +89,7 @@ export const getUserByUsername = cache(
  * @returns The matching user record including `externalUserId`, or `null` if not found.
  */
 export async function getUserByUsernameWithExternalId(username: string) {
+  await refreshLiveStatus();
   const user = await db.user.findUnique({
     where: {
       username,

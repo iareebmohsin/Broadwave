@@ -68,9 +68,9 @@ test("getAppUrl uses VERCEL_PROJECT_PRODUCTION_URL when NEXT_PUBLIC_APP_URL is a
   const originalProdUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 
   delete process.env.NEXT_PUBLIC_APP_URL;
-  process.env.VERCEL_PROJECT_PRODUCTION_URL = "nexus-live-nine.vercel.app/";
+  process.env.VERCEL_PROJECT_PRODUCTION_URL = "broadwave-nine.vercel.app/";
 
-  assert.strictEqual(getAppUrl(), "https://nexus-live-nine.vercel.app");
+  assert.strictEqual(getAppUrl(), "https://broadwave-nine.vercel.app");
 
   process.env.NEXT_PUBLIC_APP_URL = originalAppUrl;
   process.env.VERCEL_PROJECT_PRODUCTION_URL = originalProdUrl;
@@ -83,9 +83,9 @@ test("getAppUrl uses VERCEL_URL when higher priority vars are absent", function 
 
   delete process.env.NEXT_PUBLIC_APP_URL;
   delete process.env.VERCEL_PROJECT_PRODUCTION_URL;
-  process.env.VERCEL_URL = "nexus-live-preview-123.vercel.app";
+  process.env.VERCEL_URL = "broadwave-preview-123.vercel.app";
 
-  assert.strictEqual(getAppUrl(), "https://nexus-live-preview-123.vercel.app");
+  assert.strictEqual(getAppUrl(), "https://broadwave-preview-123.vercel.app");
 
   process.env.NEXT_PUBLIC_APP_URL = originalAppUrl;
   process.env.VERCEL_PROJECT_PRODUCTION_URL = originalProdUrl;
@@ -104,7 +104,7 @@ test("getAppUrl falls back to production default or localhost in development", f
   delete process.env.VERCEL_URL;
 
   mutableEnv.NODE_ENV = "production";
-  assert.strictEqual(getAppUrl(), "https://nexus-live-nine.vercel.app");
+  assert.strictEqual(getAppUrl(), "https://broadwave-nine.vercel.app");
 
   mutableEnv.NODE_ENV = "development";
   assert.strictEqual(getAppUrl(), "http://localhost:3000");

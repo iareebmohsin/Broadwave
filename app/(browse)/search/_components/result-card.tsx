@@ -61,7 +61,7 @@ export function ResultCard({ data }: ResultCardProps) {
         {/* Stream metadata: username, stream name, and last-updated time */}
         <div className="space-y-1">
           <div className="flex items-center gap-x-2">
-            <p className="cursor-pointer text-lg font-bold hover:text-blue-500">
+            <p className="cursor-pointer text-lg font-bold hover:text-primary">
               {data.user.username}
             </p>
             <VerifiedMark />

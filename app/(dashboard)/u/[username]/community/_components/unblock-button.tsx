@@ -57,7 +57,7 @@ export function UnblockButton({ userId }: UnblockButtonProps) {
 
   return (
     <Button
-      className="w-full text-blue-500"
+      className="w-full text-primary"
       disabled={isPending}
       size="sm"
       variant="link"

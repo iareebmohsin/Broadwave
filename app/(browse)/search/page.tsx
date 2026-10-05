@@ -40,8 +40,8 @@ export async function generateMetadata({
       ? `Search: "${normalizedTerm}"`
       : "Search Live Streams",
     description: normalizedTerm
-      ? `Browse live streams and content creators matching "${normalizedTerm}" on NexusLive.`
-      : "Search for live streams, creators, and communities on NexusLive.",
+      ? `Browse live streams and content creators matching "${normalizedTerm}" on Broadwave.`
+      : "Search for live streams, creators, and communities on Broadwave.",
     robots: {
       index: false,
       follow: true,

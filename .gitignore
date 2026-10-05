@@ -41,3 +41,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+scripts/stream-demo.sh
+scripts/stream-webcam.sh
+scripts/stream-screen.sh
+scripts/go-live.cmd
+media/

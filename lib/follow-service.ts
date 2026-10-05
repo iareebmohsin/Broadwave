@@ -1,5 +1,6 @@
 import { getSelf } from "@/lib/auth-service";
 import { db } from "@/lib/db";
+import { refreshLiveStatus } from "@/lib/live-status";
 
 /**
  * Fetches the list of users the currently authenticated user follows.
@@ -12,6 +13,7 @@ import { db } from "@/lib/db";
  * the lookup fails for any reason.
  */
 export async function getFollowedUsers() {
+  await refreshLiveStatus();
   try {
     const self = await getSelf();
 

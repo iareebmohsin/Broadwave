@@ -13,10 +13,13 @@ import { Results, ResultsSkeleton } from "./_components/results";
 /**
  * Metadata for the home page.
  */
+// The feed reflects live stream status; never pre-render it at build time.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Live Streams & Creator Channels",
   description:
-    "Discover recommended live streams, top content creators, and active broadcasts on NexusLive.",
+    "Discover recommended live streams, top content creators, and active broadcasts on Broadwave.",
 };
 
 /**

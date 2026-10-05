@@ -1,6 +1,7 @@
 import { Prisma } from "@/generated/prisma";
 import { getSelf } from "@/lib/auth-service";
 import { db } from "@/lib/db";
+import { refreshLiveStatus } from "@/lib/live-status";
 
 /**
  * Fetches a list of streams, ordered by live status and recency.
@@ -16,6 +17,7 @@ import { db } from "@/lib/db";
  * most recently updated.
  */
 export async function getStreams() {
+  await refreshLiveStatus();
   // Attempt to resolve the current authenticated user's ID.
   // If getSelf() throws (e.g. user not logged in), treat as anonymous.
   let userId = null;

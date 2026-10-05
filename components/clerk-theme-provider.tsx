@@ -1,22 +1,3 @@
-/**
- * @file components/clerk-theme-provider.tsx
- * @description Client component that wraps ClerkProvider and dynamically
- * applies the correct Clerk theme (light or dark) based on the current
- * application theme from next-themes.
- *
- * This component solves the problem of Clerk components always rendering
- * in light mode by reading the resolved theme from next-themes and
- * passing the appropriate theme via Clerk's `appearance` prop.
- *
- * In Clerk v7 (`@clerk/nextjs` v7), the appearance API uses the `theme`
- * property (not `baseTheme`) as part of the new `@clerk/ui` type system.
- *
- * @module ClerkThemeProvider
- * @requires @clerk/nextjs
- * @requires @clerk/themes
- * @requires next-themes
- */
-
 "use client";
 
 import { useTheme } from "next-themes";
@@ -24,50 +5,33 @@ import { useTheme } from "next-themes";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
-/**
- * Props for the {@link ClerkThemeProvider} component.
- */
 interface ClerkThemeProviderProps {
   children: React.ReactNode;
 }
 
-/**
- * ClerkThemeProvider component that syncs Clerk's theme with the app theme.
- *
- * Reads the current resolved theme (light/dark) from next-themes and
- * applies the corresponding Clerk base theme:
- * - Dark mode → uses `@clerk/themes` dark theme
- * - Light mode → uses Clerk's default (light) theme
- *
- * This ensures all Clerk screens (SignIn, SignUp, UserButton, UserProfile,
- * etc.) correctly match the application's current color scheme.
- *
- * @component
- * @param {ClerkThemeProviderProps} props - Component props
- * @param {React.ReactNode} props.children - Child components to render
- *
- * @returns {JSX.Element} ClerkProvider with theme-aware appearance
- *
- * @example
- * ```tsx
- * <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
- *   <ClerkThemeProvider>
- *     {children}
- *   </ClerkThemeProvider>
- * </ThemeProvider>
- * ```
- */
-export function ClerkThemeProvider({
-  children,
-}: ClerkThemeProviderProps): React.JSX.Element {
+/** Clerk UI follows the app theme and uses the Broadwave coral as its primary colour. */
+export function ClerkThemeProvider({ children }: ClerkThemeProviderProps): React.JSX.Element {
   const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
     <ClerkProvider
       afterSignOutUrl="/"
       appearance={
         {
-          baseTheme: resolvedTheme === "dark" ? dark : undefined,
+          baseTheme: isDark ? dark : undefined,
+          variables: {
+            colorPrimary: "#ff6a45",
+            colorBackground: isDark ? "#12201f" : "#ffffff",
+            colorInputBackground: isDark ? "#0b1516" : "#f1f6f5",
+            colorText: isDark ? "#e8f2ef" : "#0f1f1e",
+            borderRadius: "0.85rem",
+            fontFamily: "var(--font-sans), system-ui, sans-serif",
+          },
+          elements: {
+            card: "shadow-none border border-[color:var(--border)]",
+            formButtonPrimary: "rounded-full font-semibold text-[#1a0c08] hover:opacity-90",
+          },
         } as Record<string, unknown>
       }
     >

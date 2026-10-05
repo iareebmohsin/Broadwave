@@ -1,26 +1,7 @@
-/**
- * @file app/layout.tsx
- * @description Root layout component for the NexusLive Next.js application.
- *
- * Serves as the top-level layout that wraps all pages in the application.
- * Establishes the base HTML structure, global styles, font configuration,
- * theme management (light/dark), and authentication provider context.
- *
- * This layout is automatically applied to all routes in the application
- * as per Next.js App Router conventions.
- *
- * @module RootLayout
- * @requires next/font/google
- * @requires @/components/theme-provider
- * @requires @/components/clerk-theme-provider
- * @requires @/components/ui/sonner
- * @requires @/lib/utils
- */
-
 import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Organization, WebSite, WithContext } from "schema-dts";
@@ -35,30 +16,23 @@ import { cn, getAppUrl } from "@/lib/utils";
 
 const appUrl = getAppUrl();
 
-/**
- * Viewport configuration exported separately as per Next.js requirements.
- * Defines responsive scaling behavior and theme-dependent browser chrome colors.
- */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#f1f6f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a1415" },
   ],
 };
 
-/**
- * Structured schema definitions for search engine indexing.
- */
 const structuredData: WithContext<WebSite | Organization>[] = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "NexusLive",
+    name: "Broadwave",
     url: appUrl,
-    description: "Where creators and communities connect in real time.",
+    description: "Go live in a minute. Watch, chat and follow creators in real time.",
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -71,56 +45,31 @@ const structuredData: WithContext<WebSite | Organization>[] = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "NexusLive",
+    name: "Broadwave",
     url: appUrl,
-    logo: `${appUrl}/spooky.svg`,
+    logo: `${appUrl}/broadwave.svg`,
   },
 ];
 
-/**
- * Inter font configuration using Next.js built-in font optimization.
- *
- * Loads the Inter typeface with:
- * - Latin character subset for optimal bundle size
- * - CSS variable `--font-sans` for use in Tailwind CSS configuration
- *
- * Next.js automatically optimizes font loading by:
- * - Self-hosting the font files
- * - Eliminating external network requests
- * - Preventing layout shift with automatic font-display configuration
- *
- * @type {import('next/font/google').NextFont}
- */
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const grotesk = localFont({
+  src: "./fonts/SpaceGrotesk.woff2",
+  variable: "--font-sans",
+  weight: "300 700",
+  display: "swap",
+});
 
-/**
- * Application-wide metadata configuration for SEO and browser display.
- *
- * Applied globally across all pages unless overridden by page-level
- * or nested layout metadata exports.
- *
- * @type {import('next').Metadata}
- */
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
   title: {
-    default: "NexusLive - Real-Time Creator Live Streaming Platform",
-    template: "%s | NexusLive",
+    default: "Broadwave - Live streaming for creators",
+    template: "%s | Broadwave",
   },
   description:
-    "NexusLive is a modern real-time live streaming platform where creators and communities connect, chat, and stream.",
-  keywords: [
-    "live streaming",
-    "game streaming",
-    "creators",
-    "real-time chat",
-    "NexusLive",
-    "video broadcasting",
-    "streamer community",
-  ],
-  authors: [{ name: "NexusLive" }],
-  creator: "NexusLive",
-  publisher: "NexusLive",
+    "Broadwave is a real-time live streaming platform. Go live from OBS in a minute, watch creators, chat, and follow.",
+  keywords: ["live streaming", "creators", "real-time chat", "Broadwave", "broadcasting", "WebRTC"],
+  authors: [{ name: "Broadwave" }],
+  creator: "Broadwave",
+  publisher: "Broadwave",
   alternates: {
     canonical: "/",
   },
@@ -128,23 +77,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "NexusLive",
-    title: "NexusLive - Real-Time Creator Live Streaming Platform",
-    description: "Where creators and communities connect in real time.",
+    siteName: "Broadwave",
+    title: "Broadwave - Live streaming for creators",
+    description: "Go live in a minute. Watch, chat and follow creators in real time.",
     images: [
       {
-        url: "/spooky.svg",
+        url: "/broadwave.svg",
         width: 1200,
         height: 630,
-        alt: "NexusLive streaming platform",
+        alt: "Broadwave",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexusLive - Real-Time Creator Live Streaming Platform",
-    description: "Where creators and communities connect in real time.",
-    images: ["/spooky.svg"],
+    title: "Broadwave - Live streaming for creators",
+    description: "Go live in a minute. Watch, chat and follow creators in real time.",
+    images: ["/broadwave.svg"],
   },
   robots: {
     index: true,
@@ -158,125 +107,34 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/spooky.svg",
+    icon: "/broadwave.svg",
   },
 };
 
-const THEME_STORAGE_KEY = "nexuslive-theme";
+const THEME_STORAGE_KEY = "broadwave-theme";
 
-/**
- * Props for the {@link RootLayout} component.
- */
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-/**
- * RootLayout component that wraps the entire application.
- *
- * Establishes the foundational HTML structure for all pages, including:
- * - Global font application via CSS variable
- * - Full-height layout configuration
- * - Anti-aliased text rendering
- * - Theme management via next-themes (light/dark/system)
- * - Clerk authentication provider with theme-aware appearance
- * - Global toast notification support via Sonner
- *
- * Provider nesting order (outer → inner):
- * 1. ThemeProvider (next-themes) — manages the `.dark` class on `<html>`
- * 2. ClerkThemeProvider — reads the resolved theme and passes it to Clerk
- *
- * @component
- * @param {RootLayoutProps} props - Layout component props
- * @param {React.ReactNode} props.children - Child components/pages to render
- *
- * @returns {React.JSX.Element} The root HTML document structure
- *
- * @example
- * // Automatically applied by Next.js App Router to all routes:
- * // app/page.tsx              → wrapped by RootLayout
- * // app/dashboard/page.tsx    → wrapped by RootLayout
- */
-export default function RootLayout({
-  children,
-}: RootLayoutProps): React.JSX.Element {
+export default function RootLayout({ children }: RootLayoutProps): React.JSX.Element {
   return (
-    /*
-     * Root HTML element.
-     *
-     * Applied classes:
-     * - `h-full`          : Full viewport height for proper layout stretching
-     * - `antialiased`     : Smooth font rendering across operating systems
-     * - `font-sans`       : Applies the Inter font via the --font-sans CSS variable
-     * - `inter.variable`  : Injects the --font-sans CSS variable into the document
-     *
-     * `suppressHydrationWarning` is required by next-themes because it
-     * injects the theme class (`dark`) on the `<html>` element before
-     * hydration, which would otherwise cause a React hydration mismatch.
-     */
     <html
-      className={cn("h-full", "antialiased", "font-sans", inter.variable)}
+      className={cn("h-full", "antialiased", "font-sans", grotesk.variable)}
       lang="en"
       suppressHydrationWarning
     >
-      {/*
-       * Body element configured as a full-height flex column.
-       *
-       * Applied classes:
-       * - `flex`        : Enables flexbox for vertical content stacking
-       * - `min-h-full`  : Ensures body occupies at least full viewport height
-       * - `flex-col`    : Stacks children vertically (header, main, footer pattern)
-       */}
       <body className="flex min-h-full flex-col">
-        {/* Schema.org structured data */}
         <JsonLd data={structuredData} />
-        {/*
-         * NextSSRPlugin: UploadThing SSR optimization.
-         *
-         * Extracts the file router configuration on the server side and
-         * injects it into the page, preventing a client-side loading state
-         * flash when UploadThing components (UploadButton, UploadDropzone)
-         * need to fetch permissions info.
-         */}
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        {/*
-         * ThemeProvider (next-themes): Manages light/dark mode.
-         *
-         * Configuration:
-         * - `attribute="class"`         : Toggles the `.dark` class on `<html>`,
-         *   which activates the dark CSS variables in globals.css.
-         * - `defaultTheme="system"`     : Respects the user's OS preference
-         *   on first visit.
-         * - `enableSystem`              : Listens for OS-level theme changes and
-         *   updates automatically.
-         * - `disableTransitionOnChange` : Prevents a flash of transition
-         *   animations when the theme switches.
-         * - `storageKey={THEME_STORAGE_KEY}` : Key used in localStorage to persist
-         *   the user's chosen theme across sessions.
-         */}
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           disableTransitionOnChange
           enableSystem
           storageKey={THEME_STORAGE_KEY}
         >
-          {/*
-           * ClerkThemeProvider: Theme-aware authentication context.
-           *
-           * Reads the resolved theme from next-themes and passes the
-           * corresponding Clerk base theme (dark or default light) via
-           * the `appearance` prop so all Clerk UI components (SignIn,
-           * SignUp, UserButton, etc.) match the current color scheme.
-           */}
           <ClerkThemeProvider>
-            {/*
-             * Toaster: Global toast notification container (Sonner).
-             *
-             * Renders outside the page content so toast messages appear
-             * consistently across all routes without re-mounting.
-             * Theme-aware — automatically matches the active light/dark mode.
-             */}
             <Toaster />
             {children}
           </ClerkThemeProvider>

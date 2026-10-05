@@ -1,75 +1,26 @@
-/**
- * @file navigation.tsx
- * @description Navigation component for the creator dashboard sidebar.
- * Renders a list of navigation links based on the authenticated user's profile.
- */
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
-import { useUser } from "@clerk/nextjs";
-import {
-  FullscreenIcon,
-  KeyRoundIcon,
-  MessageSquareIcon,
-  UsersIcon,
-} from "lucide-react";
+import { FullscreenIcon, KeyRoundIcon, MessageSquareIcon, UsersIcon } from "lucide-react";
 
 import { NavItem, NavItemSkeleton } from "./nav-item";
 
-/**
- * Navigation component that renders the sidebar navigation links
- * for the creator dashboard.
- *
- * Behavior:
- * - Shows skeleton loaders while the user data is being fetched.
- * - Renders navigation items for Stream, Keys, Chat, and Community sections
- *   once the user is authenticated.
- * - Highlights the active navigation item based on the current URL path.
- *
- * @returns {JSX.Element} A navigation list with links to dashboard sections,
- * or skeleton placeholders while loading.
- *
- * @example
- * // Usage in Sidebar
- * <Navigation />
- */
 export function Navigation(): React.JSX.Element {
   const pathname = usePathname();
-  const { user } = useUser();
+  // The dashboard lives under /u/[username]; read the handle from the route
+  // rather than from Clerk, which may have no username set.
+  const params = useParams<{ username?: string }>();
+  const username = params?.username;
 
-  /**
-   * Route configuration for the creator dashboard navigation.
-   * Each route maps a label and icon to a user-specific URL path.
-   */
   const routes = [
-    {
-      label: "Stream",
-      href: `/u/${user?.username}`,
-      icon: FullscreenIcon,
-    },
-    {
-      label: "Keys",
-      href: `/u/${user?.username}/keys`,
-      icon: KeyRoundIcon,
-    },
-    {
-      label: "Chat",
-      href: `/u/${user?.username}/chat`,
-      icon: MessageSquareIcon,
-    },
-    {
-      label: "Community",
-      href: `/u/${user?.username}/community`,
-      icon: UsersIcon,
-    },
+    { label: "Stream", href: `/u/${username}`, icon: FullscreenIcon },
+    { label: "Keys", href: `/u/${username}/keys`, icon: KeyRoundIcon },
+    { label: "Chat", href: `/u/${username}/chat`, icon: MessageSquareIcon },
+    { label: "Community", href: `/u/${username}/community`, icon: UsersIcon },
   ];
 
-  /**
-   * Show skeleton placeholders while the user data (specifically username)
-   * is not yet available.
-   */
-  if (!user?.username) {
+  if (!username) {
     return (
       <ul className="space-y-2">
         {[...Array(4)].map((_, i) => (
